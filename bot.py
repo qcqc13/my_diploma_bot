@@ -1,11 +1,14 @@
 import telebot as tb
 import proxy_changer
 import lastfm
+import artists_top50
+import tracks_top50
+import search
 from telebot import types
 
 
 proxy = proxy_changer.read_proxy()
-bot = tb.TeleBot('533790240:AAF3R-lL3aUuegkDHv0T_HYutUlmg34TGXQ', threaded=False)
+bot = tb.TeleBot('940145749:AAENwzTWDnBkbCXwJZ8Fw7XdS0GCM5CgZoU', threaded=False)
 tb.apihelper.proxy = proxy_changer.set_proxy(proxy)
 
 user_data = {}
@@ -22,17 +25,33 @@ def welcome(message):
 
 @bot.message_handler(content_types=['text'])
 def send_text(message):
+
     if message.text.lower() == 'топ 50 песен':
-        bot.send_message(message.chat.id, 'САЛАМ')
-    elif message.text.lower() == 'топ 50 артистов':
-        top_50_artists = lastfm.get_top_artist()
-        msg = lastfm.preparing_message(top_50_artists['artists']['artist'])
+        top_50_tracks = tracks_top50.get_top_tracks()
+        msg = tracks_top50.preparing_message(top_50_tracks['tracks']['track'])
         user_data[message.chat.id] = msg
-        inline_keyboard = lastfm.make_inline_keyboard()
+        inline_keyboard = tracks_top50.make_inline_keyboard()
         bot.send_message(message.chat.id, msg[0], reply_markup=inline_keyboard,
                          disable_web_page_preview=True, parse_mode='Markdown')
+
+    elif message.text.lower() == 'топ 50 артистов':
+        top_50_artists = artists_top50.get_top_artist()
+        msg = artists_top50.preparing_message(top_50_artists['artists']['artist'])
+        user_data[message.chat.id] = msg
+        inline_keyboard = artists_top50.make_inline_keyboard()
+        bot.send_message(message.chat.id, msg[0], reply_markup=inline_keyboard,
+                         disable_web_page_preview=True, parse_mode='Markdown')
+
+
+
     else:
-        bot.reply_to(message, 'Не понимаю, но салам')
+        try_search = search.try_search()
+        msg = search.preparing_message(try_search['results']['artistmatches']['artist'])
+        user_data[message.chat.id] = msg
+        inline_keyboard = search.make_inline_keyboard()
+        bot.send_message(message.chat.id, msg[0], reply_markup=inline_keyboard,
+                         disable_web_page_preview=True, parse_mode='Markdown')
+        
 
 
 @bot.callback_query_handler(func=lambda query: True)
