@@ -45,14 +45,10 @@ def send_text(message):
 
 
     else:
-        try_search = search.try_search()
+        try_search = search.try_search(message.text)
         msg = search.preparing_message(try_search['results']['artistmatches']['artist'])
-        user_data[message.chat.id] = msg
-        inline_keyboard = search.make_inline_keyboard()
-        bot.send_message(message.chat.id, msg[0], reply_markup=inline_keyboard,
-                         disable_web_page_preview=True, parse_mode='Markdown')
+        bot.send_message(message.chat.id, msg, disable_web_page_preview=True, parse_mode='Markdown')
         
-
 
 @bot.callback_query_handler(func=lambda query: True)
 def test(query):
