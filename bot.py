@@ -8,7 +8,7 @@ import custom_keyboard
 
 
 proxy = proxy_changer.read_proxy()
-bot = tb.TeleBot('533790240:AAF3R-lL3aUuegkDHv0T_HYutUlmg34TGXQ', threaded=False)
+bot = tb.TeleBot('940145749:AAENwzTWDnBkbCXwJZ8Fw7XdS0GCM5CgZoU', threaded=False)
 tb.apihelper.proxy = proxy_changer.set_proxy(proxy)
 
 user_data = {}
