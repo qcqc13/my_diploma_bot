@@ -10,14 +10,15 @@ def try_search(searching_field):
     result_of_search = requests.get(url).json()
     return result_of_search
 
+
 def preparing_message(source_message):
     name = source_message[0]['name']
     url = source_message[0]['url']
-    return f'[{name}]({url})'
+    return (name, url)
 
 
 def send_info(singer):
-    url_to_text = f'http://ws.audioscrobbler.com/2.0/?method=artist.getinfo&artist={singer}&api_key={API_KEY}&format=json'
+    url = f'http://ws.audioscrobbler.com/2.0/?method=artist.getinfo&artist={singer}&api_key={API_KEY}&format=json'
     request_to = requests.get(url).json()
     name = request_to['artist']['name']
-    review_text = request_review['artist']
+    review_text = request_to['artist']

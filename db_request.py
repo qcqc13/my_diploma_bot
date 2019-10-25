@@ -21,7 +21,7 @@ def data(request):
 
 
 def execute(request):
-    connection = sqlite3.connect('geshtalt.db')
+    connection = sqlite3.connect('lastfm.db')
     cursor = connection.cursor()
 
     data_request = data(request)

@@ -16,9 +16,9 @@ def preparing_message(source_message):
         name = artist['name']
         artist_url = artist['url']
         
-        message.append(f'{count + 1}. [{name}]({artist_url})\r')
+        message.append(f"{count + 1}. [{name}]({artist_url})")
     half_list_size = len(message) // 2
-    return ['\r\n'.join(message[:half_list_size]), '\r'.join(message[half_list_size:])]
+    return ["\r\n".join(message[:half_list_size]), "\r\n".join(message[half_list_size:])]
 
 
 def make_inline_keyboard():

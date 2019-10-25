@@ -18,7 +18,7 @@ def preparing_message(source_message):
         
         message.append(f'{count + 1}. {singer} – [{name}]({track_url})')
     half_list_size = len(message) // 2
-    return ['\r\n'.join(message[:half_list_size]), '\r'.join(message[half_list_size:])]
+    return ['\r\n'.join(message[:half_list_size]), '\r\n'.join(message[half_list_size:])]
 
 
 def make_inline_keyboard():
