@@ -41,9 +41,9 @@ def send_text(message):
 
     else:
         try_search = search.try_search(message.text)
-        msg, url = search.preparing_message(try_search['results']['artistmatches']['artist'])
+        msg, url, bio = search.preparing_message(try_search['results']['artistmatches']['artist'])
         keyboard = custom_keyboard.make_artist_page(url)
-        bot.send_message(message.chat.id, msg, reply_markup=keyboard)
+        bot.send_message(message.chat.id, f'{msg}\n{bio}', reply_markup=keyboard, parse_mode='html')
         
 
 @bot.callback_query_handler(func=lambda query: True)
